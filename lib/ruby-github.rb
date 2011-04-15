@@ -1,7 +1,7 @@
 require 'rubygems'
 require 'json'
 require 'open-uri'
-require 'mash'
+require 'hashie'
 
 module GitHub
   class API
@@ -32,13 +32,13 @@ module GitHub
     end
   end
   
-  class Repository < Mash
+  class Repository < Hashie::Mash
     def commits
       ::GitHub::API.commits(user,name)
     end
   end
   
-  class User < Mash
+  class User < Hashie::Mash
     def initialize(hash = nil)
       @user = hash["login"] if hash
       super
@@ -49,7 +49,7 @@ module GitHub
     end
   end
   
-  class Commit < Mash
+  class Commit < Hashie::Mash
     # if a method only available to a detailed commit is called,
     # automatically fetch it from the API
     def detailed
